@@ -1,21 +1,22 @@
 /* styles.css */
 
-/* Dark cyberpunk terminal theme */
+/* Matrix-inspired hacker theme */
 
 body {
-    font-family: 'Consolas', 'Courier New', monospace;
+    font-family: 'Courier New', Courier, monospace;
     margin: 0;
     padding: 0;
-    background-color: #0a0a0a;
-    color: #00ffea;
+    background-color: #000;
+    color: #00ff00;
     width: 100%;
     padding: 20px;
     transition: background-color 0.3s, color 0.3s;
+    text-shadow: 0px 0px 10px #00ff00;
 }
 
 body.dark-mode {
-    background-color: #090909;
-    color: #ff00ff;
+    background-color: #111;
+    color: #00ff00;
 }
 
 .navbar {
@@ -23,20 +24,20 @@ body.dark-mode {
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    background-color: #121212;
+    background-color: #111;
     position: sticky;
     top: 0;
     z-index: 1000;
     transition: background-color 0.3s;
-    border-bottom: 1px solid #ff007a;
+    border-bottom: 2px solid #00ff00;
 }
 
 .navbar.scrolled {
-    background-color: rgba(18, 18, 18, 0.9);
+    background-color: rgba(17, 17, 17, 0.9);
 }
 
 .logo {
-    color: #00ffea;
+    color: #00ff00;
     font-size: 24px;
     font-weight: bold;
 }
@@ -51,21 +52,23 @@ body.dark-mode {
 }
 
 .nav-links a {
-    color: #ff007a;
+    color: #00ff00;
     text-decoration: none;
     font-size: 18px;
     transition: color 0.3s;
 }
 
 .nav-links a:hover {
-    color: #00ffea;
+    color: #00ff00;
+    text-shadow: 0px 0px 5px #00ff00;
 }
 
 .header-content {
     text-align: center;
     padding: 100px 20px;
-    background: url('cyberpunk-bg.jpg') no-repeat center center/cover;
-    color: #00ffea;
+    background: url('matrix-bg.jpg') no-repeat center center/cover;
+    color: #00ff00;
+    text-shadow: 0px 0px 15px #00ff00;
 }
 
 h1 {
@@ -76,47 +79,48 @@ h1 {
 .subtitle {
     font-size: 24px;
     margin-bottom: 40px;
-    color: #ff007a;
 }
 
 .cta {
-    background-color: #ff007a;
+    background-color: #00ff00;
     color: #000;
     padding: 10px 20px;
     border-radius: 25px;
     text-decoration: none;
     font-size: 18px;
     transition: background-color 0.3s, color 0.3s;
+    box-shadow: 0px 0px 10px #00ff00;
 }
 
 .cta:hover {
-    background-color: #00ffea;
-    color: #000;
+    background-color: #000;
+    color: #00ff00;
+    box-shadow: 0px 0px 20px #00ff00;
 }
 
 .content-section {
     max-width: 100%;
     margin: 50px auto;
     padding: 20px;
-    background-color: #121212;
+    background-color: #111;
     border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 4px 20px rgba(0, 255, 0, 0.5);
     transition: background-color 0.3s;
 }
 
 body.dark-mode .content-section {
-    background-color: #1b1b1b;
+    background-color: #222;
 }
 
 h2 {
     font-size: 32px;
     margin-bottom: 20px;
+    text-shadow: 0px 0px 10px #00ff00;
 }
 
 p {
     line-height: 1.6;
     margin-bottom: 20px;
-    color: #d4d4d4;
 }
 
 ul {
@@ -130,13 +134,13 @@ ul li {
 footer {
     text-align: center;
     padding: 20px;
-    background-color: #121212;
-    color: #00ffea;
+    background-color: #111;
+    color: #00ff00;
     position: relative;
     bottom: 0;
     width: 100%;
     transition: background-color 0.3s;
-    border-top: 1px solid #ff007a;
+    border-top: 2px solid #00ff00;
 }
 
 #backToTopBtn {
@@ -146,36 +150,40 @@ footer {
     right: 30px;
     z-index: 100;
     font-size: 18px;
-    background-color: #121212;
-    color: #ff007a;
-    border: 1px solid #00ffea;
+    background-color: #111;
+    color: #00ff00;
+    border: 2px solid #00ff00;
     padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0px 0px 10px #00ff00;
 }
 
 #backToTopBtn:hover {
-    background-color: #00ffea;
+    background-color: #00ff00;
     color: #000;
+    box-shadow: 0px 0px 20px #00ff00;
 }
 
 #darkModeToggle {
-    background-color: #ff007a;
+    background-color: #00ff00;
     color: #000;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+    box-shadow: 0px 0px 10px #00ff00;
 }
 
 #darkModeToggle:hover {
-    background-color: #00ffea;
-    color: #000;
+    background-color: #000;
+    color: #00ff00;
+    box-shadow: 0px 0px 20px #00ff00;
 }
 
 body.dark-mode #darkModeToggle {
-    background-color: #121212;
-    color: #ff007a;
+    background-color: #111;
+    color: #00ff00;
 }
