@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const backToTopBtn = document.getElementById('backToTopBtn');
     const darkModeToggle = document.getElementById('darkModeToggle');
     const body = document.body;
+    const projectsSection = document.getElementById('projects');
 
     // Smooth scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -16,12 +17,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Sticky navbar effect
     window.onscroll = function() {
-        if (window.pageYOffset > 100) {
+        const scrollTop = window.pageYOffset;
+        
+        if (scrollTop > 100) {
             navbar.classList.add('scrolled');
             backToTopBtn.style.display = 'block';
         } else {
             navbar.classList.remove('scrolled');
             backToTopBtn.style.display = 'none';
+        }
+        
+        // Change navbar background color dynamically based on scroll position
+        if (scrollTop > 300) {
+            navbar.style.backgroundColor = 'rgba(21, 21, 21, 0.95)';
+        } else {
+            navbar.style.backgroundColor = '';
         }
     };
 
@@ -33,24 +43,56 @@ document.addEventListener('DOMContentLoaded', function() {
     // Dark mode toggle functionality
     darkModeToggle.addEventListener('click', function() {
         body.classList.toggle('dark-mode');
+        updateLocalStorageForDarkMode();
     });
 
-    // Scroll animations for content sections
-    const contentSections = document.querySelectorAll('.content-section');
+    // Set dark mode based on local storage
+    function setDarkModeFromLocalStorage() {
+        const isDarkMode = localStorage.getItem('dark-mode') === 'true';
+        if (isDarkMode) {
+            body.classList.add('dark-mode');
+        } else {
+            body.classList.remove('dark-mode');
+        }
+    }
 
-    const observerOptions = {
-        threshold: 0.1,
-    };
+    function updateLocalStorageForDarkMode() {
+        const isDarkMode = body.classList.contains('dark-mode');
+        localStorage.setItem('dark-mode', isDarkMode);
+    }
 
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in');
-            }
+    // Initialize dark mode setting
+    setDarkModeFromLocalStorage();
+
+    // Fetch and display GitHub projects
+    fetch('https://api.github.com/users/hasnocool/repos')
+        .then(response => response.json())
+        .then(data => {
+            displayProjects(data);
+        })
+        .catch(error => {
+            console.error('Error fetching GitHub projects:', error);
         });
-    }, observerOptions);
 
-    contentSections.forEach(section => {
-        observer.observe(section);
-    });
+    function displayProjects(repos) {
+        repos.forEach(repo => {
+            const repoItem = document.createElement('div');
+            repoItem.classList.add('masonry-item');
+            repoItem.innerHTML = `
+                <h3>${repo.name}</h3>
+                <p>${repo.description || 'No description available.'}</p>
+                <a href="${repo.html_url}" target="_blank">View Repository</a>
+            `;
+            projectsSection.appendChild(repoItem);
+        });
+    }
+
+    // Masonry layout update on window resize
+    const masonry = document.getElementById('projects');
+    function updateMasonryLayout() {
+        masonry.style.columnCount = Math.floor(window.innerWidth / 300);
+    }
+
+    window.addEventListener('resize', updateMasonryLayout);
+    updateMasonryLayout(); // Initial call
 });
