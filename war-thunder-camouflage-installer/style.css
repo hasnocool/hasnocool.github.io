@@ -168,7 +168,7 @@ main {
 	height: 100%;
 	top: 0;
 	left: 0;
-	background-image: url('assets/DALL·E_2024-09-02_21.43.54_-_A_dark_gritty_and_monochromatic_image_depicting_the_Knights_of_Ni_from_Monty_Python_approaching_someone_menacingly._The_scene_is_filled_with_mult.png');
+	background-image: url('../assets/DALL·E_2024-09-02_21.43.54_-_A_dark_gritty_and_monochromatic_image_depicting_the_Knights_of_Ni_from_Monty_Python_approaching_someone_menacingly._The_scene_is_filled_with_mult.png');
 	background-position: 50% 0%;
 	background-size: cover;
 	z-index: 1;
