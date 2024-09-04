@@ -1,6 +1,63 @@
 document.addEventListener('DOMContentLoaded', () => {
     let allowTilt = true;
 
+    // Array of Monty Python-inspired jokes
+    const jokes = [
+        {
+            headerDate: [
+                "Available faster than you can say 'Ni!'",
+                "Ready before King Arthur finds the Holy Grail",
+                "In stores now, unlike the airspeed velocity of an unladen swallow",
+                "Accessible quicker than a French Taunter can insult you",
+                "On sale now, no shrubbery required"
+            ],
+            contentTagline: [
+                "Customize your vehicles with more magic than Tim the Enchanter",
+                "Equip thy tank with coconuts for that authentic galloping sound",
+                "Enchant thy aircraft to withstand even the most vicious rabbit attacks",
+                "Upgrade thy naval vessels to repel fish-slapping Fins",
+                "Modify thy ground forces to be always looking on the bright side of life"
+            ],
+            menuItemLink: [
+                "Begin thy customization quest<br/>Bring out your dead vehicles!",
+                "Start thy vehicular transformation<br/>No Spanish Inquisition expected",
+                "Embark on thy modification crusade<br/>Mind the killer rabbit",
+                "Initiate thy personalization pilgrimage<br/>Beware of flying cows",
+                "Launch thy customization catapult<br/>Fetchez la vache!"
+            ],
+            quote: [
+                "Cloak thy steel beast in the finest of armors, for 'tis but a scratch!",
+                "Adorn thy war machine with the mightiest of upgrades, and thou shalt taunt thy foes a second time!",
+                "Equip thy chariot of destruction, lest the Black Knight deem it 'merely a flesh wound'",
+                "Prepare thy battle-wagon, for we are the knights who say... 'Aaagh! War Thunder!'",
+                "Fortify thy iron steed, for none shall pass... without proper customization!"
+            ]
+        }
+    ];
+
+    // Function to rotate jokes
+    function rotateJokes() {
+        const headerDate = document.querySelector('.header__date');
+        const contentTagline = document.querySelector('.content__tagline');
+        const menuItemLink = document.querySelector('.menu__item-link');
+        const quote = document.querySelector('.quote');
+
+        function getRandomJoke(jokeArray) {
+            return jokeArray[Math.floor(Math.random() * jokeArray.length)];
+        }
+
+        headerDate.textContent = getRandomJoke(jokes[0].headerDate);
+        contentTagline.textContent = getRandomJoke(jokes[0].contentTagline);
+        menuItemLink.innerHTML = getRandomJoke(jokes[0].menuItemLink);
+        quote.textContent = getRandomJoke(jokes[0].quote);
+    }
+
+    // Rotate jokes every 10 seconds
+    setInterval(rotateJokes, 10000);
+
+    // Initial joke rotation
+    rotateJokes();
+
     // Class Menu.
     class Menu {
         constructor(el) {
@@ -45,20 +102,23 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+
+
         handleMenuAction(action) {
             console.log(`Menu action: ${action}`);
+            this.hideAllSections();
             switch(action) {
                 case 'features':
-                    showFeatures();
+                    this.showSection('features');
                     break;
                 case 'screenshots':
-                    showScreenshots();
+                    this.showSection('screenshots');
                     break;
                 case 'download':
-                    initiateDownload();
+                    this.showSection('downloads');
                     break;
                 case 'about':
-                    showAbout();
+                    this.showSection('about');
                     break;
                 case 'one-click install':
                     showOneClickInstall();
@@ -94,6 +154,20 @@ document.addEventListener('DOMContentLoaded', () => {
         close() {
             this.toggle('close');
         }
+
+
+        hideAllSections() {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => section.classList.add('hidden'));
+        }
+
+        showSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.classList.remove('hidden');
+            }
+        }
+
 
         toggle(action) {
             if (this.isAnimating) return;
@@ -269,21 +343,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function showFeatures() {
+        menu.showSection('features');
         console.log('Showing features');
-        // Implement feature showcase logic
+        document.getElementById('features').classList.remove('hidden');
+        document.getElementById('blog').classList.add('hidden');
+        document.getElementById('faq').classList.add('hidden');
+        // Implement feature showcase logic with dynamic content loading
+    }
+
+    function showBlog() {
+        console.log('Showing blog');
+        document.getElementById('blog').classList.remove('hidden');
+        document.getElementById('features').classList.add('hidden');
+        document.getElementById('faq').classList.add('hidden');
+        // Implement blog loading logic with dynamic content loading
     }
 
     function showScreenshots() {
+        menu.showSection('screenshots');
         console.log('Showing screenshots');
         // Implement screenshot gallery logic
     }
 
     function initiateDownload() {
+        menu.showSection('downloads');
         console.log('Initiating download');
         // Implement download logic
     }
 
     function showAbout() {
+        menu.showSection('about');
         console.log('Showing about information');
         // Implement about section logic
     }
@@ -328,3 +417,5 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.add('loaded');
     }, 5000);
 });
+
+
