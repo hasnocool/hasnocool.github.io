@@ -1,125 +1,178 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>War Thunder Camouflage Installer</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('../assets/background5.png');
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .neon-text {
+            color: #FFF;
+            text-shadow: 0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(0,191,255,0.8);
+        }
+        .grid-container {
+            display: grid;
+            gap: 16px;
+            padding: 16px;
+        }
+        @media (max-width: 480px) {
+            .grid-container { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
+        }
+        @media (min-width: 481px) and (max-width: 1024px) {
+            .grid-container { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+        }
+        @media (min-width: 1025px) and (max-width: 1440px) {
+            .grid-container { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+        }
+        @media (min-width: 1441px) {
+            .grid-container { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+        }
+        .grid-container img { width: 100%; height: auto; }
+        .highlight-box {
+            border: 2px solid #4CAF50;
+            background-color: rgba(76, 175, 80, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+    </style>
 </head>
-<body class="loading">
-    <svg class="hidden">
-        <symbol id="icon-arrow" viewbox="0 0 24 24">
-            <title>arrow</title>
-            <polygon points="6.3,12.8 20.9,12.8 20.9,11.2 6.3,11.2 10.2,7.2 9,6 3.1,12 9,18 10.2,16.8 "></polygon>
-        </symbol>
-        <symbol id="icon-menu" viewbox="0 0 119 25">
-            <title>menu</title>
-            <path d="M36,8 L36,0 L100,0 L100,8 L36,8 Z M0,8 L0,0 L24,0 L24,8 L0,8 Z M0,28 L0,20 L71,20 L71,28 L0,28 Z"></path>
-        </symbol>
-        <symbol id="icon-close" viewbox="0 0 24 24">
-            <title>close</title>
-            <path d="M24 1.485L22.515 0 12 10.515 1.485 0 0 1.485 10.515 12 0 22.515 1.485 24 12 13.484 22.515 24 24 22.515 13.484 12z"></path>
-        </symbol>
-    </svg>
-    <main>
-        <div class="frame">
-            <header class="header">
-                <h1 class="header__title">War Thunder Camouflage Installer</h1>
-                <div class="header__date">Available faster than you can say 'Ni!'</div>
-            </header>
-        </div>
-        <div class="content">
-            <div class="background"></div>
-            <h2 class="content__title">War Thunder<br/>Camo Installer</h2>
-            <p class="content__tagline">Customize your vehicles with more magic than Tim the Enchanter</p>
-        </div>
-        <nav class="menu">
-            <div class="menu__item menu__item--1" data-direction="bt">
-                <div class="menu__item-inner">
-                    <div class="mainmenu">
-                        <a href="#" class="mainmenu__item">Features</a>
-                        <a href="#" class="mainmenu__item">Screenshots</a>
-                        <a href="#" class="mainmenu__item">Download</a>
-                        <a href="#" class="mainmenu__item">About</a>
+<body class="text-white">
+    <div class="overlay min-h-screen flex flex-col justify-between">
+        <!-- Header Section -->
+        <header class="bg-black bg-opacity-50 p-4 shadow-md">
+            <div class="container mx-auto flex justify-between items-center">
+                <h1 class="text-2xl font-bold neon-text">War Thunder Camouflage Installer</h1>
+                <nav class="flex space-x-4">
+                    <a href="#" class="text-lg hover:text-blue-300">Home</a>
+                    <a href="#features" class="text-lg hover:text-blue-300">Features</a>
+                    <a href="#download" class="text-lg hover:text-blue-300">Download</a>
+                    <a href="#about" class="text-lg hover:text-blue-300">About</a>
+                    <a href="registration.html" class="text-lg hover:text-blue-300">Register</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="flex-grow flex items-center">
+            <div class="container mx-auto text-center p-8">
+                <h2 class="text-6xl md:text-7xl lg:text-8xl font-extrabold neon-text mb-6">War Thunder<br>Camouflage Installer</h2>
+                <p class="text-2xl md:text-3xl text-gray-300 max-w-3xl mx-auto mb-8">Unleash Your Creativity, Dominate the Battlefield</p>
+                
+                <div class="highlight-box">
+                    <h3 class="text-2xl md:text-3xl text-yellow-300 font-bold mb-4">🚀 Open Source Project 🚀</h3>
+                    <p class="text-lg md:text-xl text-white mb-4">Join our community and contribute to this exciting project!</p>
+                    <a href="registration.html" class="inline-block bg-yellow-600 hover:bg-yellow-700 text-white font-semibold py-4 px-8 rounded-lg shadow-lg text-xl transition duration-300 ease-in-out transform hover:scale-105 mt-6">Learn More and Register</a>
+                </div>
+
+                <p class="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto my-8">Transform your vehicles with ease. Browse, manage, and apply custom skins in just a few clicks.</p>
+                <p class="text-xl md:text-2xl text-yellow-300 max-w-3xl mx-auto mb-8 italic">"And now for something completely different: A camo installer that actually works!"</p>
+                <a href="#discord" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-8 rounded-lg shadow-lg text-xl transition duration-300 ease-in-out transform hover:scale-105">Join Our Discord Community</a>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="bg-black bg-opacity-75 py-16">
+            <div class="container mx-auto px-4">
+                <h3 class="text-3xl md:text-4xl font-bold mb-8 neon-text text-center">Key Features</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-gray-800 p-6 rounded shadow-md transform transition duration-500 hover:scale-105">
+                        <h4 class="text-2xl font-bold mb-4">Extensive Database</h4>
+                        <ul class="list-disc list-inside text-gray-400">
+                            <li>Browse through a vast collection of custom camouflages</li>
+                            <li>Supports various War Thunder vehicles</li>
+                            <li>Regularly updated with new skins</li>
+                        </ul>
                     </div>
-                    <p class="label label--topleft label--vert-mirror">the important stuff</p>
-                    <p class="label label--bottomright label--vert">made with passion</p>
-                </div>
-            </div>
-            <div class="menu__item menu__item--2" data-direction="lr">
-                <div class="menu__item-inner">
-                    <div class="menu__item-map"></div>
-                    <a href="#" class="menu__item-hoverlink">Features</a>
-                </div>
-            </div>
-            <div class="menu__item menu__item--3" data-direction="bt">
-                <div class="menu__item-inner">
-                    <div class="sidemenu">
-                        <a href="#" class="sidemenu__item"><span class="sidemenu__item-inner">One-Click Install</span></a>
-                        <a href="#" class="sidemenu__item"><span class="sidemenu__item-inner">Extensive Library</span></a>
-                        <a href="#" class="sidemenu__item"><span class="sidemenu__item-inner">Auto-Updates</span></a>
-                        <a href="#" class="sidemenu__item"><span class="sidemenu__item-inner">User-Friendly</span></a>
-                        <a href="#" class="sidemenu__item"><span class="sidemenu__item-inner">Compatibility Check</span></a>
-                        <a href="#" class="sidemenu__item"><span class="sidemenu__item-inner">Backup & Restore</span></a>
+                    <div class="bg-gray-800 p-6 rounded shadow-md transform transition duration-500 hover:scale-105">
+                        <h4 class="text-2xl font-bold mb-4">Advanced Search</h4>
+                        <ul class="list-disc list-inside text-gray-400">
+                            <li>Powerful search functionality</li>
+                            <li>Filter by tags and custom tags</li>
+                            <li>Sort and organize camouflages easily</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded shadow-md transform transition duration-500 hover:scale-105">
+                        <h4 class="text-2xl font-bold mb-4">Easy Installation</h4>
+                        <ul class="list-disc list-inside text-gray-400">
+                            <li>One-click installation process</li>
+                            <li>Customizable directory structure</li>
+                            <li>Import local skins with ease</li>
+                        </ul>
                     </div>
                 </div>
             </div>
-            <div class="menu__item menu__item--4" data-direction="rl">
-                <div class="menu__item-inner">
-                    <p class="label label--topleft label--line">Download now</p>
-                    <a href="#" class="menu__item-link">Begin thy customization quest<br/>Bring out your dead vehicles!</a>
+        </section>
+
+        <!-- Screenshots Section -->
+        <section class="py-16 bg-black bg-opacity-75">
+            <div class="container mx-auto px-4 text-center">
+                <h3 class="text-3xl md:text-4xl font-bold mb-8 neon-text">User Interface</h3>
+                <div class="grid-container">
+                    <div class="grid-item">
+                        <img src="../screenshots/screenshot1-main.png" alt="Main Interface" class="rounded shadow-lg">
+                        <p class="mt-2 text-gray-400">Main application interface</p>
+                    </div>
+                    <div class="grid-item">
+                        <img src="../screenshots/screenshot2-about.png" alt="About Section" class="rounded shadow-lg">
+                        <p class="mt-2 text-gray-400">About section with developer information</p>
+                    </div>
                 </div>
             </div>
-            <div class="menu__item menu__item--5" data-direction="tb">
-                <div class="menu__item-inner">
-                    <p class="quote">Cloak thy steel beast in the finest of armors, for 'tis but a scratch!</p>
+        </section>
+
+        <!-- Download Section -->
+        <section id="download" class="py-16">
+            <div class="container mx-auto px-4 text-center">
+                <h3 class="text-3xl md:text-4xl font-bold mb-8 neon-text">Get Started</h3>
+                <p class="text-xl mb-8">Download the latest version of War Thunder Camouflage Installer and start customizing your vehicles today!</p>
+                <a href="#" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded shadow-lg text-lg transition duration-300 ease-in-out transform hover:scale-105">Download v1.0.6-beta</a>
+                <p class="mt-4 text-gray-400">Compatible with Windows. Requires War Thunder installation.</p>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="bg-black bg-opacity-75 py-16">
+            <div class="container mx-auto px-4 text-center">
+                <h3 class="text-3xl md:text-4xl font-bold mb-8 neon-text">About the Project</h3>
+                <p class="text-xl mb-8">War Thunder Camouflage Installer is an open-source project developed by hasnocool. It aims to simplify the process of managing and installing custom skins for War Thunder enthusiasts.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                    <div>
+                        <h4 class="text-2xl font-bold mb-4">Connect with the Developer</h4>
+                        <p><strong>GitHub:</strong> <a href="https://github.com/hasnocool" class="text-blue-300 hover:text-blue-100">https://github.com/hasnocool</a></p>
+                        <p><strong>Email:</strong> hasnocool@outlook.com</p>
+                        <p><strong>Twitch:</strong> <a href="https://www.twitch.tv/fleshwounded" class="text-blue-300 hover:text-blue-100">https://www.twitch.tv/fleshwounded</a></p>
+                    </div>
+                    <div>
+                        <h4 class="text-2xl font-bold mb-4">Support the Project</h4>
+                        <p><strong>Dogecoin Address:</strong> D6R9njUqnbvPjP1CVceeP1EG7E6h3PzffB</p>
+                        <p><strong>X (Twitter):</strong> <a href="https://x.com/fleshwounded" class="text-blue-300 hover:text-blue-100">https://x.com/fleshwounded</a></p>
+                        <p><strong>War Thunder Profile:</strong> <a href="https://warthunder.com/en/community/userinfo/?nick=Fleshwounded" class="text-blue-300 hover:text-blue-100">Fleshwounded</a></p>
+                    </div>
                 </div>
             </div>
-            <button class="action action--menu"><svg class="icon icon--menu"><use xlink:href="#icon-menu"></use></svg></button>
-            <button class="action action--close"><svg class="icon icon--close"><use xlink:href="#icon-close"></use></svg></button>
-        </nav>
-    </main>
+        </section>
 
-
-    <!-- Add these new sections after the main content -->
-    <div id="features" class="content-section hidden">
-        <h2>Features</h2>
-        <ul>
-            <li>One-click installation</li>
-            <li>Extensive camouflage library</li>
-            <li>Automatic updates</li>
-            <li>User-friendly interface</li>
-            <li>Compatibility checker</li>
-            <li>Backup and restore functionality</li>
-        </ul>
+        <!-- Footer Section -->
+        <footer class="bg-black bg-opacity-50 p-4">
+            <div class="container mx-auto flex justify-between items-center">
+                <p class="text-sm text-gray-400">&copy; 2024 War Thunder Camouflage Installer. All Rights Reserved.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Terms of Service</a>
+                </div>
+            </div>
+        </footer>
     </div>
-
-    <div id="screenshots" class="content-section hidden">
-        <h2>Screenshots</h2>
-        <div class="screenshot-gallery">
-            <img src="/api/placeholder/300/200" alt="Screenshot 1">
-            <img src="/api/placeholder/300/200" alt="Screenshot 2">
-            <img src="/api/placeholder/300/200" alt="Screenshot 3">
-        </div>
-    </div>
-
-    <div id="downloads" class="content-section hidden">
-        <h2>Downloads</h2>
-        <ul>
-            <li><a href="#" class="download-link">War Thunder Camo Installer v1.0</a></li>
-            <li><a href="#" class="download-link">User Manual (PDF)</a></li>
-            <li><a href="#" class="download-link">Camouflage Pack - Desert Storm</a></li>
-        </ul>
-    </div>
-
-    <div id="about" class="content-section hidden">
-        <h2>About War Thunder Camo Installer</h2>
-        <p>War Thunder Camo Installer is a cutting-edge tool designed to enhance your gaming experience. Developed by a team of passionate gamers and programmers, our installer brings the art of vehicle customization to new heights.</p>
-        <p>With an extensive library of historically accurate and fantasy-inspired camouflages, you can make your vehicles stand out on any battlefield. Our user-friendly interface and one-click installation process ensure that you spend less time configuring and more time conquering.</p>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
-    <script src="script.js"></script>
 </body>
 </html>
