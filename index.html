@@ -3,23 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hasnocool's Developer Portfolio featuring innovative open-source software for gamers and developers.">
+    <meta name="keywords" content="Hasnocool, developer, portfolio, open-source, War Thunder, projects, machine learning, data science, web scraping">
+    <meta name="author" content="Hasnocool">
     <title>Hasnocool's Developer Portfolio</title>
+    
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-563ZWSFF');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- TailwindCSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    
     <style>
+        /* Background Image with Overlay for Transparency */
         body {
-            background-image: url('./assets/background5.png');
+            background-image: url('./assets/optimized/background16.png');
             background-size: cover;
             background-attachment: fixed;
             background-repeat: no-repeat;
             background-position: center;
         }
+
         .overlay {
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent overlay */
         }
+
+        /* Reduce neon effect for improved readability */
         .neon-text {
             color: #FFF;
-            text-shadow: 0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(0,191,255,0.8);
+            text-shadow: 0 0 5px rgba(255,255,255,0.6), 0 0 10px rgba(0,191,255,0.6); /* Softer glow */
         }
+
         .highlight-box {
             border: 2px solid #4CAF50;
             background-color: rgba(76, 175, 80, 0.1);
@@ -27,18 +46,94 @@
             padding: 20px;
             margin-top: 20px;
         }
+
         .grid-container {
             display: grid;
             gap: 16px;
             padding: 16px;
         }
+
         @media (min-width: 481px) {
             .grid-container { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
         }
+
         .grid-container img { width: 100%; height: auto; }
+
+        /* Subtle animations for project cards */
+        .project-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 191, 255, 0.2);
+        }
+
+        /* Footer Enhancements */
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 1rem 0;
+            color: #CCC;
+        }
+
+        footer p, footer a {
+            font-size: 0.875rem;
+        }
+
+        footer a {
+            color: #FFF;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #4CAF50;
+        }
+
+        /* Style for Support My Work section */
+        .support-section {
+            background-color: rgba(0, 0, 0, 0.85);
+            padding: 40px 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            margin-bottom: 40px;
+        }
+
+        .support-section h4 {
+            margin-bottom: 1rem;
+            color: #4CAF50;
+        }
+
+        .support-details {
+            margin-bottom: 2rem;
+        }
+
+        .donation-box {
+            border: 2px solid #4CAF50;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .donation-box p {
+            color: #CCC;
+            margin-bottom: 15px;
+        }
+
+        .donation-box img {
+            margin: 20px auto;
+            max-width: 150px;
+        }
     </style>
 </head>
 <body class="text-white">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-563ZWSFF"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <div class="overlay min-h-screen flex flex-col justify-between">
         <!-- Header Section -->
         <header class="bg-black bg-opacity-50 p-4 shadow-md">
@@ -60,33 +155,64 @@
             </div>
         </section>
 
-        <!-- Projects Section -->
-        <section id="projects" class="bg-black bg-opacity-75 py-16">
-            <div class="container mx-auto px-4">
-                <h3 class="text-3xl font-bold neon-text text-center mb-8">Featured Projects</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <!-- War Thunder Camouflage Installer -->
-                    <div class="bg-gray-800 p-6 rounded shadow-md transition transform hover:scale-105">
-                        <h4 class="text-2xl font-bold mb-4">War Thunder Camouflage Installer</h4>
-                        <p class="text-gray-400 mb-4">An open-source tool to easily install and manage War Thunder skins. Customize your vehicles with ease!</p>
-                        <a href="https://github.com/hasnocool/war_thunder_camouflage_installer" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg shadow-lg text-lg transition duration-300 ease-in-out transform hover:scale-105 mb-4">View on GitHub</a>
-                        <a href="https://hasnocool.github.io/war-thunder-camouflage-installer" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-lg text-lg transition duration-300 ease-in-out transform hover:scale-105">Visit Official Website</a>
-                    </div>
+    <!-- Projects Section -->
+    <section id="projects" class="bg-black bg-opacity-75 py-16">
+        <div class="container mx-auto px-4">
+            <h3 class="text-3xl font-bold neon-text text-center mb-8">Featured Projects</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+                <!-- War Thunder Camouflage Installer -->
+                <div class="bg-gray-800 p-6 rounded shadow-md project-card">
+                    <h4 class="text-2xl font-bold mb-4">War Thunder Camouflage Installer</h4>
+                    <p class="text-gray-400 mb-4">An open-source tool to easily install and manage War Thunder skins. Customize your vehicles with ease!</p>
+                    <a href="https://github.com/hasnocool/war_thunder_camouflage_installer" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg shadow-lg text-lg transition duration-300 ease-in-out transform hover:scale-105 mb-4">View on GitHub</a>
+                    <a href="./war-thunder-camouflage-installer/index.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-lg text-lg transition duration-300 ease-in-out transform hover:scale-105">Visit Official Website</a>
+                    <p class="mt-4">Join our community on <a href="https://discord.gg/d9dkA6bn" class="text-blue-400 underline">Discord</a>!</p>
+                </div>
 
-                    <!-- Additional Project Template -->
-                    <div class="bg-gray-800 p-6 rounded shadow-md transition transform hover:scale-105">
-                        <h4 class="text-2xl font-bold mb-4">Next Project Coming Soon!</h4>
-                        <p class="text-gray-400 mb-4">Stay tuned for more amazing projects from hasnocool, including tools for developers and gamers.</p>
-                    </div>
+                <!-- War Thunder Screenshot Contest Automate -->
+                <div class="bg-gray-800 p-6 rounded shadow-md project-card">
+                    <h4 class="text-2xl font-bold mb-4">War Thunder Screenshot Contest Automate</h4>
+                    <p class="text-gray-400 mb-4">Automates screenshots in War Thunder and posts them to forums, making you eligible for prizes like Golden Eagles.</p>
+                    <a href="https://github.com/hasnocool/war_thunder_screenshot_automate" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg shadow-lg text-lg transition duration-300 ease-in-out transform hover:scale-105 mb-4">View on GitHub</a>
+                    <a href="./comming-soon.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-lg text-lg transition duration-300 ease-in-out transform hover:scale-105">Visit Official Website</a>
+                </div>
+
+                <!-- War Thunder Data Scraper -->
+                <div class="bg-gray-800 p-6 rounded shadow-md project-card">
+                    <h4 class="text-2xl font-bold mb-4">War Thunder Data Scraper</h4>
+                    <p class="text-gray-400 mb-4">A powerful scraper tool to datamine player profiles, in-game data, forums, and more from War Thunder.</p>
+                    <a href="https://github.com/hasnocool/war_thunder_data_scraper" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg shadow-lg text-lg transition duration-300 ease-in-out transform hover:scale-105 mb-4">View on GitHub</a>
+                    <a href="./comming-soon.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-lg text-lg transition duration-300 ease-in-out transform hover:scale-105">Visit Official Website</a>
+                </div>
+
+                <!-- War Thunder Mod Installer -->
+                <div class="bg-gray-800 p-6 rounded shadow-md project-card">
+                    <h4 class="text-2xl font-bold mb-4">War Thunder Mod Installer</h4>
+                    <p class="text-gray-400 mb-4">An open-source mod installer for War Thunder, making it easier to install and manage game mods.</p>
+                    <a href="https://github.com/hasnocool/war_thunder_mod_installer" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg shadow-lg text-lg transition duration-300 ease-in-out transform hover:scale-105 mb-4">View on GitHub</a>
+                    <a href="./comming-soon.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-lg text-lg transition duration-300 ease-in-out transform hover:scale-105">Visit Official Website</a>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- About Section -->
-        <section id="about" class="bg-black bg-opacity-75 py-16">
+
+        <!-- Support My Work Section -->
+        <section id="donation" class="py-16 support-section">
             <div class="container mx-auto text-center px-4">
-                <h3 class="text-3xl font-bold neon-text mb-8">About Me</h3>
-                <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">I'm hasnocool, a passionate developer specializing in creating tools for gamers and developers. My first official release, the War Thunder Camouflage Installer, has been a huge success, and I'm excited to keep pushing forward with new projects.</p>
+                <h4 class="text-3xl font-bold neon-text mb-8">Support My Work</h4>
+                <div class="support-details text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                    <p>If you like what you see here, or if you’ve used any of my apps and found them helpful, <strong>donations and contributions</strong> are very much welcomed. Supporting my work helps me continue creating and improving the tools and projects I’m passionate about.</p>
+                    <p>Your support enables me to dedicate more time to developing projects like the <strong>War Thunder Camouflage Installer</strong> and other upcoming tools. Every bit helps, and I'm incredibly grateful for your generosity!</p>
+                </div>
+
+                <!-- Donation Box -->
+                <div class="donation-box">
+                    <h4 class="text-2xl font-bold mb-4">Donate via Dogecoin</h4>
+                    <p>Dogecoin Wallet Address:</p>
+                    <p class="font-semibold text-white">DRChWu2oMAD4RbFWCkk77P17zcYoBrhinN</p>
+                    <img src="./assets/optimized/dogecoin-qr.png" alt="Dogecoin QR Code" class="rounded shadow-lg">
+                </div>
             </div>
         </section>
 
@@ -95,20 +221,53 @@
             <div class="container mx-auto text-center">
                 <h3 class="text-3xl font-bold neon-text mb-8">Connect with Me</h3>
                 <p class="text-xl mb-8">Feel free to reach out for collaboration or to check out my work.</p>
-                <div class="highlight-box">
-                    <p class="text-lg mb-4">GitHub: <a href="https://github.com/hasnocool" class="text-blue-300 hover:text-blue-100">https://github.com/hasnocool</a></p>
-                    <p class="text-lg mb-4">Email: hasnocool@outlook.com</p>
-                    <p class="text-lg mb-4">Twitch: <a href="https://www.twitch.tv/fleshwounded" class="text-blue-300 hover:text-blue-100">Fleshwounded</a></p>
+                <!-- Social Media Icons -->
+                <div class="flex justify-center space-x-6 mb-8">
+                    <a href="https://github.com/hasnocool" target="_blank" class="text-white hover:text-blue-400">
+                        <i class="fab fa-github text-3xl"></i>
+                    </a>
+                    <a href="mailto:hasnocool@outlook.com" class="text-white hover:text-green-400">
+                        <i class="fas fa-envelope text-3xl"></i>
+                    </a>
+                    <a href="https://www.twitch.tv/fleshwounded" target="_blank" class="text-white hover:text-purple-400">
+                        <i class="fab fa-twitch text-3xl"></i>
+                    </a>
                 </div>
             </div>
         </section>
 
         <!-- Footer Section -->
-        <footer class="bg-black bg-opacity-50 p-4">
-            <div class="container mx-auto flex justify-between items-center">
+        <footer class="bg-black bg-opacity-50 p-4 w-full">
+            <div class="flex justify-between items-center max-w-screen-xl mx-auto px-4">
                 <p class="text-sm text-gray-400">&copy; 2024 hasnocool. All Rights Reserved.</p>
+                <div class="flex space-x-4">
+                    <a href="#privacy-policy">Privacy Policy</a>
+                    <a href="#terms-of-service">Terms of Service</a>
+                </div>
             </div>
         </footer>
     </div>
 </body>
 </html>
+
+
+
+
+
+PLEASE ADD THIS TO OUR SCRIPT SO WE CAN TRACK METRICS 
+
+Install Google Tag Manager
+Copy the code below and paste it onto every page of your website.
+1. Paste this code as high in the <head> of the page as possible:
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-563ZWSFF');</script>
+<!-- End Google Tag Manager -->
+2. Paste this code immediately after the opening <body> tag:
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-563ZWSFF"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->

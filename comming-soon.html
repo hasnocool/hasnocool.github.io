@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="This project is under development. Stay tuned for more updates from hasnocool.">
+    <meta name="keywords" content="Hasnocool, Coming Soon, War Thunder, Project, Open-source">
+    <meta name="author" content="Hasnocool">
+    <title>Coming Soon - Hasnocool's Project</title>
+    
+    <!-- TailwindCSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    
+    <style>
+        /* Background Image with Overlay for Transparency */
+        body {
+            background-image: url('./assets/optimized/coming-soon0.png');
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent overlay */
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Neon Text for Coming Soon */
+        .coming-soon-text {
+            font-size: 5rem;
+            font-weight: bold;
+            color: #FFF;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(0, 191, 255, 0.8);
+        }
+
+        .message {
+            color: #CCC;
+            font-size: 1.5rem;
+            max-width: 600px;
+            margin: 20px auto;
+            line-height: 1.5;
+        }
+
+        .back-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-transform: uppercase;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 191, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #3e8e41;
+            transform: scale(1.05);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="overlay">
+        <div class="text-center">
+            <h1 class="coming-soon-text">Coming Soon</h1>
+            <p class="message">
+                This project is currently under development. Check back soon for updates on how you can use this upcoming tool to enhance your War Thunder experience. Thank you for your patience!
+            </p>
+            <a href="/" class="back-button">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>
