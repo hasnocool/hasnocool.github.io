@@ -3,71 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Organizing the Chaos</title>
-    <link rel="stylesheet" href="styles.css">
-    <script defer src="script.js"></script>
+    <title>Hasnocool's Developer Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('./assets/background5.png');
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .neon-text {
+            color: #FFF;
+            text-shadow: 0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(0,191,255,0.8);
+        }
+        .highlight-box {
+            border: 2px solid #4CAF50;
+            background-color: rgba(76, 175, 80, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .grid-container {
+            display: grid;
+            gap: 16px;
+            padding: 16px;
+        }
+        @media (min-width: 481px) {
+            .grid-container { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+        }
+        .grid-container img { width: 100%; height: auto; }
+    </style>
 </head>
-<body>
-    <header>
-        <nav class="navbar" id="navbar">
-            <div class="logo">My Journey</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#journey">The Journey</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <button id="darkModeToggle">Toggle Dark Mode</button>
-        </nav>
-        <div class="header-content" id="home">
-            <h1>Welcome to My Journey: Organizing the Chaos</h1>
-            <p class="subtitle">A long saga to bring order to my digital life</p>
-            <a href="#journey" class="cta">Read My Journey</a>
-        </div>
-    </header>
+<body class="text-white">
+    <div class="overlay min-h-screen flex flex-col justify-between">
+        <!-- Header Section -->
+        <header class="bg-black bg-opacity-50 p-4 shadow-md">
+            <div class="container mx-auto flex justify-between items-center">
+                <h1 class="text-2xl font-bold neon-text">Hasnocool's Developer Portfolio</h1>
+                <nav class="flex space-x-4">
+                    <a href="#projects" class="text-lg hover:text-blue-300">Projects</a>
+                    <a href="#about" class="text-lg hover:text-blue-300">About</a>
+                    <a href="#contact" class="text-lg hover:text-blue-300">Contact</a>
+                </nav>
+            </div>
+        </header>
 
-    <section id="journey" class="content-section">
-        <h2>The Problem: Redundancy and Fragmentation</h2>
-        <p>
-            For years, I’ve been working on various projects—coding scripts, jotting down notes, brainstorming ideas, and developing plans across different computers and devices. Each new project would spawn more files, more notes, and more chaos. The result? A scattered digital landscape where I’m constantly hunting for the right file or script. Important ideas get lost, duplicated files become outdated, and progress stalls because I can’t locate the work I’ve already done.
-        </p>
+        <!-- Hero Section -->
+        <section class="flex-grow flex items-center">
+            <div class="container mx-auto text-center p-8">
+                <h2 class="text-6xl font-extrabold neon-text mb-6">Hasnocool's Projects</h2>
+                <p class="text-2xl text-gray-300 max-w-3xl mx-auto mb-8">Innovative open-source software for gamers and developers.</p>
+            </div>
+        </section>
 
-        <h2>The Turning Point: Realizing the Need for Change</h2>
-        <p>
-            It hit me one day as I was scrolling through endless folders and subfolders—this has to stop. The inefficiency was not just frustrating; it was holding me back from truly moving forward with my work. I realized I needed to find a better way to organize, centralize, and streamline my digital life. The goal was clear: create a system that would bring order to the chaos, reduce redundancy, and ensure that I never lose track of my work again.
-        </p>
+        <!-- Projects Section -->
+        <section id="projects" class="bg-black bg-opacity-75 py-16">
+            <div class="container mx-auto px-4">
+                <h3 class="text-3xl font-bold neon-text text-center mb-8">Featured Projects</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- War Thunder Camouflage Installer -->
+                    <div class="bg-gray-800 p-6 rounded shadow-md transition transform hover:scale-105">
+                        <h4 class="text-2xl font-bold mb-4">War Thunder Camouflage Installer</h4>
+                        <p class="text-gray-400 mb-4">An open-source tool to easily install and manage War Thunder skins. Customize your vehicles with ease!</p>
+                        <a href="https://github.com/hasnocool/war_thunder_camouflage_installer" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg shadow-lg text-lg transition duration-300 ease-in-out transform hover:scale-105 mb-4">View on GitHub</a>
+                        <a href="https://hasnocool.github.io/war-thunder-camouflage-installer" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-lg text-lg transition duration-300 ease-in-out transform hover:scale-105">Visit Official Website</a>
+                    </div>
 
-        <h2>The Journey Ahead: My Attempt to Solve the Problem</h2>
-        <p>
-            This blog is my attempt to chronicle the long journey of solving this problem. From exploring various organizational tools and systems to refining my workflow and implementing solutions across multiple devices, I’ll be sharing every step of the way.
-        </p>
+                    <!-- Additional Project Template -->
+                    <div class="bg-gray-800 p-6 rounded shadow-md transition transform hover:scale-105">
+                        <h4 class="text-2xl font-bold mb-4">Next Project Coming Soon!</h4>
+                        <p class="text-gray-400 mb-4">Stay tuned for more amazing projects from hasnocool, including tools for developers and gamers.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <p>
-            I plan to dive into:
-            <ul>
-                <li><strong>Digital Organization:</strong> How I’m structuring my files and folders for easy access.</li>
-                <li><strong>Centralized Storage Solutions:</strong> The tools I’m using to ensure everything is backed up and available no matter where I am.</li>
-                <li><strong>Workflow Optimization:</strong> How I’m streamlining my work process to minimize the chaos.</li>
-                <li><strong>Lessons Learned:</strong> The challenges, setbacks, and successes I encounter on this journey.</li>
-            </ul>
-        </p>
+        <!-- About Section -->
+        <section id="about" class="bg-black bg-opacity-75 py-16">
+            <div class="container mx-auto text-center px-4">
+                <h3 class="text-3xl font-bold neon-text mb-8">About Me</h3>
+                <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">I'm hasnocool, a passionate developer specializing in creating tools for gamers and developers. My first official release, the War Thunder Camouflage Installer, has been a huge success, and I'm excited to keep pushing forward with new projects.</p>
+            </div>
+        </section>
 
-        <p>
-            This isn’t just about tidying up my digital workspace; it’s about reclaiming control over my projects, ideas, and time. By getting organized, I aim to enhance my productivity, reduce stress, and make sure I can focus on what really matters—creating, developing, and moving forward.
-        </p>
+        <!-- Contact Section -->
+        <section id="contact" class="py-16">
+            <div class="container mx-auto text-center">
+                <h3 class="text-3xl font-bold neon-text mb-8">Connect with Me</h3>
+                <p class="text-xl mb-8">Feel free to reach out for collaboration or to check out my work.</p>
+                <div class="highlight-box">
+                    <p class="text-lg mb-4">GitHub: <a href="https://github.com/hasnocool" class="text-blue-300 hover:text-blue-100">https://github.com/hasnocool</a></p>
+                    <p class="text-lg mb-4">Email: hasnocool@outlook.com</p>
+                    <p class="text-lg mb-4">Twitch: <a href="https://www.twitch.tv/fleshwounded" class="text-blue-300 hover:text-blue-100">Fleshwounded</a></p>
+                </div>
+            </div>
+        </section>
 
-        <h2>Why This Matters</h2>
-        <p>
-            So, join me as I embark on this long saga of digital decluttering and organizational mastery. I hope that by sharing my experiences, I can help others facing the same issues and, together, we can conquer the chaos.
-        </p>
-
-        <p>Welcome to my journey—let’s get organized!</p>
-    </section>
-
-    <footer>
-        <p>&copy; 2024 My Journey. All rights reserved.</p>
-    </footer>
-
-    <button id="backToTopBtn" title="Go to top">&#8679;</button>
+        <!-- Footer Section -->
+        <footer class="bg-black bg-opacity-50 p-4">
+            <div class="container mx-auto flex justify-between items-center">
+                <p class="text-sm text-gray-400">&copy; 2024 hasnocool. All Rights Reserved.</p>
+            </div>
+        </footer>
+    </div>
 </body>
 </html>
