@@ -1,0 +1,1474 @@
+
+========================================
+File: /home/hasnocool/Github/active/hasnocool.github.io/script.js
+========================================
+document.addEventListener('DOMContentLoaded', function() {
+    const navbar = document.getElementById('navbar');
+    const backToTopBtn = document.getElementById('backToTopBtn');
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const body = document.body;
+    const projectsSection = document.getElementById('projects');
+
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // Sticky navbar effect
+    window.onscroll = function() {
+        const scrollTop = window.pageYOffset;
+        
+        if (scrollTop > 100) {
+            navbar.classList.add('scrolled');
+            backToTopBtn.style.display = 'block';
+        } else {
+            navbar.classList.remove('scrolled');
+            backToTopBtn.style.display = 'none';
+        }
+        
+        // Change navbar background color dynamically based on scroll position
+        if (scrollTop > 300) {
+            navbar.style.backgroundColor = 'rgba(21, 21, 21, 0.95)';
+        } else {
+            navbar.style.backgroundColor = '';
+        }
+    };
+
+    // Back to top button functionality
+    backToTopBtn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Dark mode toggle functionality
+    darkModeToggle.addEventListener('click', function() {
+        body.classList.toggle('dark-mode');
+        updateLocalStorageForDarkMode();
+    });
+
+    // Set dark mode based on local storage
+    function setDarkModeFromLocalStorage() {
+        const isDarkMode = localStorage.getItem('dark-mode') === 'true';
+        if (isDarkMode) {
+            body.classList.add('dark-mode');
+        } else {
+            body.classList.remove('dark-mode');
+        }
+    }
+
+    function updateLocalStorageForDarkMode() {
+        const isDarkMode = body.classList.contains('dark-mode');
+        localStorage.setItem('dark-mode', isDarkMode);
+    }
+
+    // Initialize dark mode setting
+    setDarkModeFromLocalStorage();
+
+    // Fetch and display GitHub projects
+    fetch('https://api.github.com/users/hasnocool/repos')
+        .then(response => response.json())
+        .then(data => {
+            displayProjects(data);
+        })
+        .catch(error => {
+            console.error('Error fetching GitHub projects:', error);
+        });
+
+    function displayProjects(repos) {
+        repos.forEach(repo => {
+            const repoItem = document.createElement('div');
+            repoItem.classList.add('masonry-item');
+            repoItem.innerHTML = `
+                <h3>${repo.name}</h3>
+                <p>${repo.description || 'No description available.'}</p>
+                <a href="${repo.html_url}" target="_blank">View Repository</a>
+            `;
+            projectsSection.appendChild(repoItem);
+        });
+    }
+
+    // Masonry layout update on window resize
+    const masonry = document.getElementById('projects');
+    function updateMasonryLayout() {
+        masonry.style.columnCount = Math.floor(window.innerWidth / 300);
+    }
+
+    window.addEventListener('resize', updateMasonryLayout);
+    updateMasonryLayout(); // Initial call
+});
+
+========================================
+File: /home/hasnocool/Github/active/hasnocool.github.io/compress_and_optimize_images.py
+========================================
+from PIL import Image
+import os
+
+def compress_image(image_path, output_path, quality=85):
+    """
+    Compress JPEG and PNG images using Pillow.
+    :param image_path: Input path of the image.
+    :param output_path: Output path where compressed image will be saved.
+    :param quality: Compression quality for JPEG (1-100). Default is 85.
+    """
+    try:
+        # Open an image file
+        with Image.open(image_path) as img:
+            # Check if the image is in JPEG or PNG format
+            if img.format == 'JPEG':
+                # Save JPEG images with compression
+                img.save(output_path, 'JPEG', optimize=True, quality=quality)
+                print(f"JPEG image compressed and saved to {output_path}")
+            elif img.format == 'PNG':
+                # Save PNG image with Pillow's built-in optimization
+                img.save(output_path, 'PNG', optimize=True)
+                print(f"PNG image compressed and saved to {output_path}")
+            else:
+                print(f"Unsupported image format: {img.format}")
+
+            # Remove the original file after compression
+            os.remove(image_path)
+            print(f"Original file {image_path} deleted.")
+
+    except Exception as e:
+        print(f"Error compressing image: {e}")
+
+def optimize_images_in_directory(input_directory, output_directory):
+    """
+    Compress and optimize all JPEG and PNG images in a directory.
+    :param input_directory: Path to the directory containing input images.
+    :param output_directory: Path to the directory to save optimized images.
+    """
+    if not os.path.exists(output_directory):
+        os.makedirs(output_directory)
+
+    # Iterate over all files in the input directory
+    for filename in os.listdir(input_directory):
+        if filename.lower().endswith(('.jpg', '.jpeg', '.png')):
+            input_path = os.path.join(input_directory, filename)
+            output_path = os.path.join(output_directory, filename)
+
+            # Ensure proper path handling for different operating systems
+            input_path = os.path.normpath(input_path)
+            output_path = os.path.normpath(output_path)
+
+            compress_image(input_path, output_path)
+
+# Example usage
+if __name__ == "__main__":
+    input_dir = os.path.normpath('./assets')  # Folder with original images
+    output_dir = os.path.normpath('./assets/optimized')  # Folder to store optimized images
+    
+    optimize_images_in_directory(input_dir, output_dir)
+
+========================================
+File: /home/hasnocool/Github/active/hasnocool.github.io/styles.css
+========================================
+/* styles.css */
+
+/* Dark terminal black theme with orange accents */
+
+body {
+    font-family: 'Fira Code', 'Courier New', monospace;
+    margin: 0;
+    padding: 0;
+    background-color: #000000;
+    color: #e0e0e0;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+    background-color: #0d0d0d;
+    color: #f8f8f2;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #1a1a1a;
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transition: background-color 0.3s;
+    border-bottom: 2px solid #ff7f50; /* Orange accent */
+    box-sizing: border-box;
+}
+
+.navbar.scrolled {
+    background-color: rgba(26, 26, 26, 0.9);
+}
+
+.logo {
+    color: #ff7f50; /* Orange accent */
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.nav-links li {
+    display: inline;
+    margin-left: 20px;
+}
+
+.nav-links a {
+    color: #ff7f50; /* Orange accent */
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #ffa07a; /* Lighter orange accent */
+}
+
+.header-content {
+    text-align: center;
+    padding: 100px 20px;
+    background: url('dark-terminal-bg.jpg') no-repeat center center/cover;
+    color: #e0e0e0;
+}
+
+h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.subtitle {
+    font-size: 24px;
+    margin-bottom: 40px;
+    color: #ffa07a; /* Lighter orange accent */
+}
+
+.cta {
+    background-color: #ff7f50; /* Orange accent */
+    color: #000000;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 18px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.cta:hover {
+    background-color: #ffa07a; /* Lighter orange accent */
+    color: #000000;
+}
+
+.masonry {
+    column-count: 3; /* Number of columns */
+    column-gap: 20px; /* Space between columns */
+    padding: 20px; /* Add padding on both sides */
+}
+
+.masonry-item {
+    break-inside: avoid;
+    margin-bottom: 20px;
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    padding: 15px;
+    transition: transform 0.3s;
+    box-sizing: border-box; /* Include padding in the item's width */
+}
+
+.masonry-item h3 {
+    color: #ff7f50; /* Orange accent */
+    margin-bottom: 10px;
+}
+
+.masonry-item p {
+    color: #e0e0e0; /* Subtle text color */
+}
+
+.masonry-item a {
+    color: #ffa07a; /* Lighter orange accent */
+    text-decoration: none;
+}
+
+.masonry-item a:hover {
+    color: #ff7f50; /* Orange accent */
+}
+
+.content-section {
+    max-width: 100%;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.7);
+    transition: background-color 0.3s;
+}
+
+body.dark-mode .content-section {
+    background-color: #2a2a2a;
+}
+
+h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #ff7f50; /* Orange accent */
+}
+
+p {
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #e0e0e0;
+}
+
+ul {
+    margin-left: 20px;
+}
+
+ul li {
+    margin-bottom: 10px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #1a1a1a;
+    color: #ff7f50; /* Orange accent */
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: background-color 0.3s;
+    border-top: 2px solid #ff7f50; /* Orange accent */
+    box-sizing: border-box;
+}
+
+#backToTopBtn {
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 100;
+    font-size: 18px;
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+    border: 2px solid #ff7f50; /* Orange accent */
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#backToTopBtn:hover {
+    background-color: #ff7f50; /* Orange accent */
+    color: #000000;
+}
+
+#darkModeToggle {
+    background-color: #ff7f50; /* Orange accent */
+    color: #000000;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#darkModeToggle:hover {
+    background-color: #ffa07a; /* Lighter orange accent */
+    color: #000000;
+}
+
+body.dark-mode #darkModeToggle {
+    background-color: #1a1a1a;
+    color: #ff7f50; /* Orange accent */
+}
+
+========================================
+File: /home/hasnocool/Github/active/hasnocool.github.io/print_files.py
+========================================
+import os
+
+def print_file_contents(directory):
+    for root, dirs, files in os.walk(directory):
+        # Skip the __pycache__ and .git directories
+        dirs[:] = [d for d in dirs if d not in ('__pycache__', '.git')]
+        
+        for filename in files:
+            # Skip binary files like .pyc and .git files
+            if filename.endswith('.pyc') or filename == '.git':
+                continue
+
+            # Get the full path of the file
+            filepath = os.path.join(root, filename)
+            
+            # Print the filename
+            print(f"\n{'='*40}\nFile: {filepath}\n{'='*40}")
+            
+            # Print the contents of the file
+            try:
+                with open(filepath, 'r') as file:
+                    print(file.read())
+            except Exception as e:
+                print(f"Could not read {filepath}. Error: {e}")
+
+if __name__ == "__main__":
+    # Define the directory containing your project files
+    project_directory = '.'  # Update this to the correct path if necessary
+    
+    # Print the contents of each file in the directory
+    print_file_contents(project_directory)
+
+========================================
+File: /home/hasnocool/Github/active/hasnocool.github.io/war-thunder-camouflage-installer/script.js
+========================================
+document.addEventListener('DOMContentLoaded', () => {
+    let allowTilt = true;
+
+    // Array of Monty Python-inspired jokes
+    const jokes = [
+        {
+            headerDate: [
+                "Available faster than you can say 'Ni!'",
+                "Ready before King Arthur finds the Holy Grail",
+                "In stores now, unlike the airspeed velocity of an unladen swallow",
+                "Accessible quicker than a French Taunter can insult you",
+                "On sale now, no shrubbery required"
+            ],
+            contentTagline: [
+                "Customize your vehicles with more magic than Tim the Enchanter",
+                "Equip thy tank with coconuts for that authentic galloping sound",
+                "Enchant thy aircraft to withstand even the most vicious rabbit attacks",
+                "Upgrade thy naval vessels to repel fish-slapping Fins",
+                "Modify thy ground forces to be always looking on the bright side of life"
+            ],
+            menuItemLink: [
+                "Begin thy customization quest<br/>Bring out your dead vehicles!",
+                "Start thy vehicular transformation<br/>No Spanish Inquisition expected",
+                "Embark on thy modification crusade<br/>Mind the killer rabbit",
+                "Initiate thy personalization pilgrimage<br/>Beware of flying cows",
+                "Launch thy customization catapult<br/>Fetchez la vache!"
+            ],
+            quote: [
+                "Cloak thy steel beast in the finest of armors, for 'tis but a scratch!",
+                "Adorn thy war machine with the mightiest of upgrades, and thou shalt taunt thy foes a second time!",
+                "Equip thy chariot of destruction, lest the Black Knight deem it 'merely a flesh wound'",
+                "Prepare thy battle-wagon, for we are the knights who say... 'Aaagh! War Thunder!'",
+                "Fortify thy iron steed, for none shall pass... without proper customization!"
+            ]
+        }
+    ];
+
+    // Function to rotate jokes
+    function rotateJokes() {
+        const headerDate = document.querySelector('.header__date');
+        const contentTagline = document.querySelector('.content__tagline');
+        const menuItemLink = document.querySelector('.menu__item-link');
+        const quote = document.querySelector('.quote');
+
+        function getRandomJoke(jokeArray) {
+            return jokeArray[Math.floor(Math.random() * jokeArray.length)];
+        }
+
+        headerDate.textContent = getRandomJoke(jokes[0].headerDate);
+        contentTagline.textContent = getRandomJoke(jokes[0].contentTagline);
+        menuItemLink.innerHTML = getRandomJoke(jokes[0].menuItemLink);
+        quote.textContent = getRandomJoke(jokes[0].quote);
+    }
+
+    // Rotate jokes every 10 seconds
+    setInterval(rotateJokes, 10000);
+
+    // Initial joke rotation
+    rotateJokes();
+
+    // Class Menu.
+    class Menu {
+        constructor(el) {
+            this.DOM = {el: el};
+            this.DOM.openCtrl = document.querySelector('.action--menu');
+            this.DOM.closeCtrl = document.querySelector('.action--close');
+            this.DOM.openCtrl.addEventListener('click', () => this.open());
+            this.DOM.closeCtrl.addEventListener('click', () => this.close());
+
+            this.DOM.items = Array.from(this.DOM.el.querySelectorAll('.menu__item'));
+            this.itemsTotal = this.DOM.items.length;
+
+            this.DOM.mainLinks = this.DOM.el.querySelectorAll('.mainmenu > a.mainmenu__item');
+            this.DOM.sidemenuLinks = this.DOM.el.querySelectorAll('.sidemenu span.sidemenu__item-inner');
+            this.DOM.menulink = this.DOM.el.querySelector('.menu__item-link');
+
+            this.addMenuItemListeners();
+        }
+
+        addMenuItemListeners() {
+            this.DOM.mainLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const action = link.textContent.toLowerCase();
+                    this.handleMenuAction(action);
+                });
+            });
+
+            this.DOM.sidemenuLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const action = link.textContent.toLowerCase();
+                    this.handleMenuAction(action);
+                });
+            });
+
+            if (this.DOM.menulink) {
+                this.DOM.menulink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.handleMenuAction('menulink');
+                });
+            }
+        }
+
+
+
+        handleMenuAction(action) {
+            console.log(`Menu action: ${action}`);
+            this.hideAllSections();
+            switch(action) {
+                case 'features':
+                    this.showSection('features');
+                    break;
+                case 'screenshots':
+                    this.showSection('screenshots');
+                    break;
+                case 'download':
+                    this.showSection('downloads');
+                    break;
+                case 'about':
+                    this.showSection('about');
+                    break;
+                case 'one-click install':
+                    showOneClickInstall();
+                    break;
+                case 'extensive library':
+                    showExtensiveLibrary();
+                    break;
+                case 'auto-updates':
+                    showAutoUpdates();
+                    break;
+                case 'user-friendly':
+                    showUserFriendly();
+                    break;
+                case 'compatibility check':
+                    showCompatibilityCheck();
+                    break;
+                case 'backup & restore':
+                    showBackupRestore();
+                    break;
+                case 'menulink':
+                    handleMenuLink();
+                    break;
+                default:
+                    console.log('Unknown action');
+            }
+            this.close();
+        }
+        
+        open() {
+            this.toggle('open');
+        }
+
+        close() {
+            this.toggle('close');
+        }
+
+
+        hideAllSections() {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => section.classList.add('hidden'));
+        }
+
+        showSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.classList.remove('hidden');
+            }
+        }
+
+
+        toggle(action) {
+            if (this.isAnimating) return;
+            allowTilt = action === 'open' ? false : true;
+            this.isAnimating = true;
+            
+            this.DOM.el.classList[action === 'open' ? 'add' : 'remove']('menu--open');
+            
+            const animationEnd = (pos) => {
+                if (pos === this.itemsTotal - 1) {
+                    this.isAnimating = false;
+                }
+            };
+            
+            this.DOM.items.forEach((el, pos) => {
+                const innerEl = el.querySelector('.menu__item-inner');
+                
+                const config = {};
+                const configInner = {};
+                const direction = el.dataset.direction;
+                
+                if (direction === 'bt') {
+                    config.y = '101%';
+                    configInner.y = '-101%';
+                    configInner.x = '0%';
+                } else if (direction === 'tb') {
+                    config.y = '-101%';
+                    configInner.y = '101%';
+                    configInner.x = '0%';
+                } else if (direction === 'lr') {
+                    config.x = '-101%';
+                    configInner.x = '101%';
+                } else if (direction === 'rl') {
+                    config.x = '101%';
+                    configInner.x = '-101%';
+                } else {
+                    config.x = '101%';
+                    config.y = '101%';
+                    configInner.x = '-101%';
+                    configInner.y = '-101%';
+                }
+                
+                if (action === 'open') {
+                    gsap.set(el, config);
+                    gsap.set(innerEl, configInner);
+
+                    gsap.to([el,innerEl], {
+                        duration: 0.9,
+                        ease: "power3.inOut",
+                        x: '0%',
+                        y: '0%',
+                        onComplete: () => animationEnd(pos)
+                    });
+                } else {
+                    gsap.to(el, {
+                        duration: 0.6,
+                        ease: "power3.inOut",
+                        x: config.x || 0,
+                        y: config.y || 0
+                    });
+                    gsap.to(innerEl, {
+                        duration: 0.6,
+                        ease: "power3.inOut",
+                        x: configInner.x || 0,
+                        y: configInner.y || 0,
+                        onComplete: () => animationEnd(pos)
+                    });
+                }
+            });
+
+            gsap.to(this.DOM.closeCtrl, {
+                duration: 0.6,
+                ease: action === 'open' ? "power3.inOut" : "power3.in",
+                startAt: action === 'open' ? {rotation: 0} : null,
+                opacity: action === 'open' ? 1 : 0,
+                rotation: action === 'open' ? 180 : 270
+            });
+            gsap.to(this.DOM.openCtrl, {
+                duration: action === 'open' ? 0.6 : 0.3,
+                delay: action === 'open' ? 0 : 0.3,
+                ease: action === 'open' ? "power3.inOut" : "power3.in",
+                opacity: action === 'open' ? 0 : 1
+            });
+
+            gsap.to(this.DOM.mainLinks, {
+                duration: action === 'open' ? 0.9 : 0.2,
+                ease: action === 'open' ? "power3.inOut" : "power3.in",
+                startAt: action === 'open' ? {y: '50%', opacity: 0} : null,
+                y: action === 'open' ? '0%' : '50%',
+                opacity: action === 'open' ? 1 : 0,
+                stagger: action === 'open' ? 0.1 : -0.1
+            });
+
+            gsap.to(this.DOM.sidemenuLinks, {
+                duration: action === 'open' ? 0.5 : 0.2,
+                ease: action === 'open' ? "power3.inOut" : "power3.in",
+                startAt: action === 'open' ? {y: '100%'} : null,
+                y: action === 'open' ? '0%' : '100%',
+                stagger: action === 'open' ? 0.05 : -0.05
+            });
+
+            if (this.DOM.menulink) {
+                gsap.to(this.DOM.menulink, {
+                    duration: action === 'open' ? 0.9 : 0.6,
+                    ease: action === 'open' ? "power3.inOut" : "power3.in",
+                    startAt: action === 'open' ? {x: '10%'} : null,
+                    x: action === 'open' ? '0%' : '10%'
+                });
+            }
+        }
+    }
+
+    class TiltFx {
+        constructor() {
+            this.DOM = {main: document.querySelector('.background')};
+            this.layersTotal = 4;
+            this.layout();
+            this.initEvents();
+        }
+
+        layout() {
+            let inner = '';
+            for (let i = 0; i < this.layersTotal; ++i) {
+                inner += '<div class="background__copy"></div>';
+            }
+            this.DOM.main.innerHTML = inner;
+            this.DOM.layers = Array.from(this.DOM.main.querySelectorAll('.background__copy'));
+        }
+
+        initEvents() {
+            this.mousemoveFn = ev => requestAnimationFrame(() => this.tilt(ev));
+            document.body.addEventListener('mousemove', this.mousemoveFn);
+        }
+
+        tilt(ev) {
+            if (!allowTilt) return;
+            const mousepos = getMousePos(ev);
+            const bounds = this.DOM.main.getBoundingClientRect();
+            const relmousepos = {
+                x : (mousepos.x - bounds.left) / bounds.width,
+                y : (mousepos.y - bounds.top) / bounds.height
+            };
+            this.DOM.layers.forEach((layer, pos) => {
+                const totalMovement = (pos + 1) * 30;
+                const rotationX = relmousepos.y * 2 - 1;
+                const rotationY = relmousepos.x * 2 - 1;
+                gsap.to(layer, {
+                    duration: 1.2,
+                    ease: 'power3.out',
+                    x: rotationY * totalMovement,
+                    y: rotationX * totalMovement,
+                    rotationX: rotationX * 5,
+                    rotationY: rotationY * 5,
+                    scale: 1 + (pos * 0.05)
+                });
+            });
+        }
+    }
+
+    const getMousePos = (ev) => {
+        return {
+            x : ev.clientX,
+            y : ev.clientY
+        };
+    }
+
+    const menu = new Menu(document.querySelector('nav.menu'));
+    const tilt = new TiltFx();
+
+    imagesLoaded(document.querySelector('.background'), {background: true}, () => {
+        document.body.classList.remove('loading');
+        document.body.classList.add('loaded');
+    });
+
+    function showFeatures() {
+        menu.showSection('features');
+        console.log('Showing features');
+        document.getElementById('features').classList.remove('hidden');
+        document.getElementById('blog').classList.add('hidden');
+        document.getElementById('faq').classList.add('hidden');
+        // Implement feature showcase logic with dynamic content loading
+    }
+
+    function showBlog() {
+        console.log('Showing blog');
+        document.getElementById('blog').classList.remove('hidden');
+        document.getElementById('features').classList.add('hidden');
+        document.getElementById('faq').classList.add('hidden');
+        // Implement blog loading logic with dynamic content loading
+    }
+
+    function showScreenshots() {
+        menu.showSection('screenshots');
+        console.log('Showing screenshots');
+        // Implement screenshot gallery logic
+    }
+
+    function initiateDownload() {
+        menu.showSection('downloads');
+        console.log('Initiating download');
+        // Implement download logic
+    }
+
+    function showAbout() {
+        menu.showSection('about');
+        console.log('Showing about information');
+        // Implement about section logic
+    }
+
+    function showOneClickInstall() {
+        console.log('Showing one-click install info');
+        // Implement one-click install showcase
+    }
+
+    function showExtensiveLibrary() {
+        console.log('Showing extensive library');
+        // Implement library showcase
+    }
+
+    function showAutoUpdates() {
+        console.log('Showing auto-updates info');
+        // Implement auto-updates info
+    }
+
+    function showUserFriendly() {
+        console.log('Showing user-friendly features');
+        // Implement user-friendly features showcase
+    }
+
+    function showCompatibilityCheck() {
+        console.log('Showing compatibility check');
+        // Implement compatibility check logic
+    }
+
+    function showBackupRestore() {
+        console.log('Showing backup & restore info');
+        // Implement backup & restore info
+    }
+
+    function handleMenuLink() {
+        console.log('Handling menu link click');
+        // Implement menu link action
+    }
+
+    setTimeout(() => {
+        document.body.classList.remove('loading');
+        document.body.classList.add('loaded');
+    }, 5000);
+});
+
+
+
+========================================
+File: /home/hasnocool/Github/active/hasnocool.github.io/war-thunder-camouflage-installer/style.css
+========================================
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block;}audio,canvas,video{display:inline-block;}audio:not([controls]){display:none;height:0;}[hidden]{display:none;}html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}body{margin:0;}a:focus{outline:thin dotted;}a:active,a:hover{outline:0;}h1{font-size:2em;margin:0.67em 0;}abbr[title]{border-bottom:1px dotted;}b,strong{font-weight:bold;}dfn{font-style:italic;}hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0;}mark{background:#ff0;color:#000;}code,kbd,pre,samp{font-family:monospace,serif;font-size:1em;}pre{white-space:pre-wrap;}q{quotes:"\201C" "\201D" "\2018" "\2019";}small{font-size:80%;}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline;}sup{top:-0.5em;}sub{bottom:-0.25em;}img{border:0;}svg:not(:root){overflow:hidden;}figure{margin:0;}fieldset{border:1px solid #c0c0c0;margin:0 2px;padding:0.35em 0.625em 0.75em;}legend{border:0;padding:0;}button,input,select,textarea{font-family:inherit;font-size:100%;margin:0;}button,input{line-height:normal;}button,select{text-transform:none;}button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer;}button[disabled],html input[disabled]{cursor:default;}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0;}input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box;}input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none;}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0;}textarea{overflow:auto;vertical-align:top;}table{border-collapse:collapse;border-spacing:0;}
+*,
+*::after,
+*::before {
+	box-sizing: border-box;
+}
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+body {
+	--color-text: #fff;
+	--color-bg: #252525;
+	--color-link: #fff;
+	--color-link-hover: #f20c40;
+	--color-bg-item1: #15171b;
+	--color-bg-item2: #2c35b7;
+	--color-bg-item3: #0f1013;
+	--color-bg-item4: #1d2027;
+	--color-bg-item5: #0f1013;
+	--color-item-alt: #494d54;
+	--color-quote: #5b677a;
+	--color-info: #57535a;
+	--color-title: #e23434;
+	--color-tagline: #e2e2e2;
+	font-family: "europa", Futura, Arial, sans-serif;
+	min-height: 100vh;
+	color: #57585c;
+	color: var(--color-text);
+	background-color: #fff;
+	background-color: var(--color-bg);
+	overflow: hidden;
+	padding: 6rem 0 0 0;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* Add this to your existing CSS */
+
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+}
+
+.loaded .loader {
+    opacity: 0;
+    visibility: hidden;
+}
+
+main {
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+}
+
+.loaded main {
+    opacity: 1;
+}
+
+/* Ensure content is visible when JavaScript is disabled */
+.no-js .loader {
+    display: none;
+}
+
+.no-js main {
+    opacity: 1;
+}
+
+/* Page Loader */
+.js .loading::before {
+	content: '';
+	position: fixed;
+	z-index: 100000;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: var(--color-bg);
+}
+
+.js .loading::after {
+	content: '';
+	position: fixed;
+	z-index: 100000;
+	top: 50%;
+	left: 50%;
+	width: 60px;
+	height: 60px;
+	margin: -30px 0 0 -30px;
+	pointer-events: none;
+	border-radius: 50%;
+	opacity: 0.4;
+	background: var(--color-link);
+	animation: loaderAnim 0.7s linear infinite alternate forwards;
+}
+
+@keyframes loaderAnim {
+	to {
+		opacity: 1;
+		transform: scale3d(0.5,0.5,1);
+	}
+}
+
+
+a {
+	text-decoration: none;
+	color: var(--color-link);
+	outline: none;
+	transition: color 0.2s;
+}
+
+a:hover,
+a:focus {
+	color: var(--color-link-hover);
+}
+
+button:focus,
+a:focus {
+	outline: none;
+}
+
+.hidden {
+	position: absolute;
+	overflow: hidden;
+	width: 0;
+	height: 0;
+	pointer-events: none;
+}
+
+/* Icons */
+.icon {
+	display: block;
+	width: 1.5em;
+	height: 1.5em;
+	margin: 0 auto;
+	fill: currentColor;
+}
+
+main {
+	position: relative;
+	width: 100%;
+}
+
+.frame {
+	position: relative;
+	z-index: 199;
+}
+
+.content {
+	text-align: center;
+	position: relative;
+	z-index: 100;
+}
+
+.background {
+	perspective: 1000px;
+}
+
+.background,
+.background__copy {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background-image: url('../assets/DALL·E_2024-09-02_21.43.54_-_A_dark_gritty_and_monochromatic_image_depicting_the_Knights_of_Ni_from_Monty_Python_approaching_someone_menacingly._The_scene_is_filled_with_mult.png');
+	background-position: 50% 0%;
+	background-size: cover;
+	z-index: 1;
+}
+
+.background__copy {
+	opacity: 0.3;
+	transform: translate3d(0,0,0);
+}
+
+/* Header */
+.header {
+	position: relative;
+	z-index: 100;
+	display: flex;
+	align-self: start;
+}
+
+.header__title {
+	font-size: 1rem;
+	line-height: 1;
+	font-weight: normal;
+	margin: 0 1rem;
+}
+
+.info {
+	display: block;
+	grid-area: info;
+	margin: 1rem 0;
+	justify-self: end;
+	text-align: center;
+}
+
+.github {
+	display: block;
+	margin: 1rem 0 0 0;
+}
+
+/* Top Navigation Style */
+.links {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	white-space: nowrap;
+	font-size: 0.85rem;
+}
+
+.codrops-icon {
+	display: inline-block;
+	padding: 0.25em;
+}
+
+.content__title {
+		font-family: "sabbath-black",serif;
+  font-weight: 400;
+  font-style: normal;
+	font-size: 14vw;
+	font-weight: normal;
+	mix-blend-mode: screen;
+	line-height: 0.8;
+	text-transform: lowercase;
+	margin: 0;
+	color: var(--color-title);
+	z-index: 199;
+	cursor: default;
+}
+
+.content__tagline {
+	color: var(--color-tagline);
+	margin: 1rem 0 0 0;
+	font-weight: bold;
+	font-size: 1rem;
+	letter-spacing: 0.125rem;
+	word-spacing: 0.25rem;
+	text-transform: uppercase;
+	text-align: center;
+	z-index: 1;
+	cursor: default;
+  position: absolute;
+  right: 25px;
+  transform: translateY(50%);
+  height: 100vh;
+}
+
+.action {
+	background: none;
+	border: 0;
+	color: #fff;
+	cursor: pointer;
+	padding: 0;
+}
+
+.action--menu {
+	pointer-events: auto;
+	position: absolute;
+	top: 1.5rem;
+	right: 1.5rem;
+	z-index: 1000;
+}
+
+.menu--open .action--menu {
+	pointer-events: none;
+}
+
+.action--close {
+	position: absolute;
+	top: 1.5rem;
+	right: 1.75rem;
+	z-index: 1000;
+	opacity: 0;
+	padding: 0 0.5rem;
+}
+
+.icon--menu {
+	width: 2rem;
+}
+
+.icon--close {
+	width: 1rem;
+}
+
+.menu {
+	text-align: center;
+	width: 100%;
+	height: 100vh;
+	overflow: hidden;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 200;
+	display: grid;
+	grid-template-columns: 100%;
+	grid-template-rows: repeat(3,33.33%);
+	pointer-events: none;
+}
+
+.menu--open {
+	pointer-events: auto;
+}
+
+.menu__item {
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+}
+
+.menu__item-inner {
+	overflow: hidden;
+	transform: translate3d(100%,0,0);
+	height: 100%;
+	width: 100%;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.menu__item--1 .menu__item-inner {
+	background: var(--color-bg-item1);
+}
+.menu__item--2 .menu__item-inner {
+	background: var(--color-bg-item2);
+}
+.menu__item--3 .menu__item-inner {
+	background: var(--color-bg-item3);
+}
+.menu__item--4 .menu__item-inner {
+	background: var(--color-bg-item4);
+}
+.menu__item--5 .menu__item-inner {
+	background: var(--color-bg-item5);
+}
+
+.menu__item--4, 
+.menu__item--5 {
+	display: none;
+}
+
+.label {
+	display: none;
+}
+
+.mainmenu__item {
+	opacity: 0;
+}
+
+.mainmenu__item,
+.sidemenu__item {
+	position: relative;
+	overflow: hidden;
+	transition: color 0.1s;
+	margin: 0.25rem 0;
+	display: block;
+}
+
+.sidemenu__item-inner {
+	display: block;
+	transform: translate3d(0,100%,0);
+}
+
+.menu__item-map {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: url(https://github.com/codrops/MultiboxMenu/blob/master/img/2.jpg?raw=true) no-repeat 50% 50%;
+	background-size: cover;
+	transition: transform 0.8s cubic-bezier(0.2,1,0.8,1);
+}
+
+.menu__item-inner:hover .menu__item-map {
+	transform: scale3d(1.1,1.1,1);
+}
+
+.menu__item-hoverlink {
+	font-weight: bold;
+	text-transform: capitalize;
+	position: relative;
+	z-index: 1000;
+	display: block;
+}
+
+.menu__item-hoverlink:hover {
+	color: var(--color-link);
+}
+
+.quote {
+	font-size: 2rem;
+	padding: 1rem;
+	text-align: center;
+	max-width: 70%;
+	color: var(--color-quote);
+	font-family: "sabbath-black",serif;
+}
+
+.menu__item-link {
+	text-align: left;
+	align-self: flex-start;
+	justify-self: start;
+	font-size: 1.5rem;
+	width: 100%;
+	line-height: 1;
+	padding: 2rem ;
+	margin: 3rem 0 auto;
+	display: flex;
+	flex-direction: column;
+	height: calc(100% - 3rem);
+}
+
+.menu__item-link::after {
+	content: '\27F6';
+	display: block;
+	margin-top: auto;
+	font-size: 0.95rem;
+}
+
+@media screen and (min-width: 53em) {
+	body {
+		padding: 0;
+	}
+	.content {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		margin: 0 auto;
+		min-height: 100vh;
+		text-align: left;
+	}
+	.frame {
+		position: fixed;
+		z-index: 199;
+		top: 0;
+		left: 0;
+		display: grid;
+		align-content: space-between;
+		width: 100%;
+		max-width: none;
+		height: 100vh;
+		padding: 1.5rem;
+		pointer-events: none;
+		grid-template-columns: 50% 50%;
+		grid-template-rows: auto auto auto;
+	}
+	.header {
+		padding: 0;
+		justify-content: start;
+	}
+	.links {
+		margin: 0;
+	}
+	.frame a {
+		pointer-events: auto;
+	}
+	.github {
+		grid-area: github;
+		justify-self: start;
+	}
+	.info {
+		margin: 0 6rem 0 0;
+		color: var(--color-info);
+	}
+	.menu {
+		width: 100%;
+		height: 100vh;
+		overflow: hidden;
+		position: fixed;
+		top: 0;
+		left: 0;
+		grid-template-columns: 20% 30% 50%;
+		grid-template-rows: 60% 40%;
+		grid-template-areas: 
+            "item3 item2 item1"
+            "item4 item5 item1";
+	}
+	.menu__item {
+		height: 100%;
+	}
+	.menu__item--1 {
+		grid-area: item1;
+	}
+	.menu__item--2 {
+		grid-area: item2;
+	}
+	.menu__item--3 {
+		grid-area: item3;
+	}
+	.menu__item--4 {
+		grid-area: item4;
+	}
+	.menu__item--5 {
+		grid-area: item5;
+	}
+	.menu__item--4, 
+	.menu__item--5 {
+		display: block;
+	}
+	.menu__item-inner {
+		align-items: center;
+	}
+	.label {
+		display: block;
+		color: var(--color-item-alt);
+		position: absolute;
+		z-index: 1000;
+		font-size: 0.85rem;
+		font-weight: bold;
+		margin: 0;
+		white-space: nowrap;
+	}
+	.label--topleft {
+		top: 2rem;
+		left: 2rem;
+	}
+	.label--vert,
+	.label--vert-mirror {
+		-webkit-writing-mode: vertical-rl;
+		writing-mode: vertical-rl;
+	}
+	.label--vert-mirror {
+		transform: rotate(180deg);
+	}
+	.label--bottomright {
+		bottom: 2rem;
+		right: 2rem;
+	}
+	.label::before {
+		content: '------------- ';
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		letter-spacing: -1px;
+		margin: 0 0.75rem 0 0;
+	}
+	.label--vert::before,
+	.label--vert-mirror::before {
+		margin: 0.75rem 0;
+	}
+	.mainmenu,
+	.sidemenu {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+	.mainmenu {
+		counter-reset: menuitem;
+	}
+	.mainmenu__item {
+		font-size: 5vw;
+		text-transform: lowercase;
+		overflow: visible;
+		margin: 0.5rem 0;
+		padding: 0 0.5rem;
+		position: relative;
+		transition: color 0.3s;
+	}
+	.mainmenu__item:hover {
+		color: var(--color-item-alt);
+	}
+	.mainmenu__item::before {
+		counter-increment: menuitem;
+		content: counters(menuitem, "", decimal-leading-zero);
+		position: absolute;
+	    font-size: 0.85rem;	
+	    top: 25%;
+	    left: -1.25rem;
+	    color: var(--color-item-alt);
+	}
+	.mainmenu__item::after {
+		content: '';
+		width: 100%;
+		top: 58%;
+		height: 6px;
+		background: var(--color-link-hover);
+		position: absolute;
+		left: 0;
+		opacity: 0;
+		transform: scale3d(0,1,1);
+		transition: transform 0.3s, opacity 0.3s;
+		transform-origin: 100% 50%;
+	}
+	.mainmenu__item:hover::after {
+		opacity: 1;
+		transform: scale3d(1,1,1);
+	}
+	.sidemenu__item {
+		text-transform: uppercase;
+		letter-spacing: 0.15rem;
+		font-size: 0.85rem;
+	}
+	.menu__item-hoverlink {
+		font-size: 1.25rem;
+		text-transform: lowercase;
+		border-bottom: 2px solid #fff;
+		opacity: 0;
+		transition: opacity 0.3s;
+	}
+	.menu__item-inner:hover .menu__item-hoverlink {
+		opacity: 1;
+	}
+}
