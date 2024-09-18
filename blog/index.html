@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>War Thunder Blog</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        .blog-card {
+            transition: transform 0.3s ease-in-out;
+        }
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 flex flex-col min-h-screen">
+    <header class="bg-blue-600 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">War Thunder Blog</h1>
+            <nav>
+                <ul class="flex space-x-4">
+                    <li><a href="#" class="hover:text-blue-200">Home</a></li>
+                    <li><a href="#" class="hover:text-blue-200">Categories</a></li>
+                    <li><a href="#" class="hover:text-blue-200">About</a></li>
+                    <li><a href="#" class="hover:text-blue-200">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto py-8 flex-grow">
+        <section id="blog-posts" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Blog posts will be dynamically inserted here -->
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white mt-8">
+        <div class="container mx-auto py-4">
+            <div class="flex justify-between items-center mb-4">
+                <h1 class="text-2xl font-bold">War Thunder Blog</h1>
+                <nav>
+                    <ul class="flex space-x-4">
+                        <li><a href="#" class="hover:text-blue-200">Home</a></li>
+                        <li><a href="#" class="hover:text-blue-200">Categories</a></li>
+                        <li><a href="#" class="hover:text-blue-200">About</a></li>
+                        <li><a href="#" class="hover:text-blue-200">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="text-center">
+                <p>&copy; 2024 War Thunder Blog. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Feather Icons
+        feather.replace();
+
+        // Blog post metadata
+        const blogPosts = [
+            {
+                title: "The Evolution of War Thunder Graphics",
+                file: "evolution-of-graphics.md",
+                author: "Jane Doe",
+                date: "September 15, 2024",
+                likes: 120,
+                comments: 45,
+                shares: 30
+            },
+            {
+                title: "Top 10 War Thunder Tactics for Beginners",
+                file: "beginner-tactics.md",
+                author: "John Smith",
+                date: "September 10, 2024",
+                likes: 95,
+                comments: 32,
+                shares: 25
+            }
+            // Add more blog post metadata as needed
+        ];
+
+        // Function to fetch and render a Markdown file
+        async function fetchAndRenderPost(post) {
+            try {
+                console.log(`Fetching post: ${post.file}`);
+                const response = await fetch(`posts/${post.file}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const markdown = await response.text();
+                console.log(`Markdown content fetched for ${post.file}`);
+                const content = marked.parse(markdown);
+                console.log(`Markdown parsed for ${post.file}`);
+                
+                return `
+                    <article class="bg-white rounded-lg shadow-md overflow-hidden blog-card">
+                        <div class="h-48 bg-gray-300 flex items-center justify-center">
+                            <i data-feather="camera" class="text-gray-500" style="width: 48px; height: 48px;"></i>
+                        </div>
+                        <div class="p-6">
+                            <h2 class="text-xl font-bold mb-2">${post.title}</h2>
+                            <div class="text-gray-600 mb-4">${content.substring(0, 150)}...</div>
+                            <div class="flex justify-between items-center text-sm text-gray-500">
+                                <span>${post.author}</span>
+                                <span>${post.date}</span>
+                            </div>
+                            <div class="mt-4 flex justify-between items-center text-gray-500">
+                                <button class="flex items-center space-x-1">
+                                    <i data-feather="heart" class="w-4 h-4"></i>
+                                    <span>${post.likes}</span>
+                                </button>
+                                <button class="flex items-center space-x-1">
+                                    <i data-feather="message-circle" class="w-4 h-4"></i>
+                                    <span>${post.comments}</span>
+                                </button>
+                                <button class="flex items-center space-x-1">
+                                    <i data-feather="share-2" class="w-4 h-4"></i>
+                                    <span>${post.shares}</span>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            } catch (error) {
+                console.error(`Error fetching blog post ${post.file}:`, error);
+                return `<article class="bg-white rounded-lg shadow-md overflow-hidden blog-card">
+                    <div class="p-6">
+                        <h2 class="text-xl font-bold mb-2">Error Loading Post</h2>
+                        <p class="text-gray-600">Sorry, we couldn't load this blog post.</p>
+                        <p class="text-gray-600">Error: ${error.message}</p>
+                    </div>
+                </article>`;
+            }
+        }
+
+        // Function to render all blog posts
+        async function renderBlogPosts() {
+            const blogPostsContainer = document.getElementById('blog-posts');
+            for (const post of blogPosts) {
+                try {
+                    console.log(`Rendering post: ${post.file}`);
+                    const postHTML = await fetchAndRenderPost(post);
+                    blogPostsContainer.innerHTML += postHTML;
+                    console.log(`Post rendered: ${post.file}`);
+                } catch (error) {
+                    console.error(`Error rendering post ${post.file}:`, error);
+                    blogPostsContainer.innerHTML += `
+                        <article class="bg-white rounded-lg shadow-md overflow-hidden blog-card">
+                            <div class="p-6">
+                                <h2 class="text-xl font-bold mb-2">Error Rendering Post</h2>
+                                <p class="text-gray-600">Sorry, we couldn't render this blog post.</p>
+                                <p class="text-gray-600">Error: ${error.message}</p>
+                            </div>
+                        </article>
+                    `;
+                }
+            }
+            feather.replace(); // Re-initialize Feather icons for the new content
+        }
+
+        // Render blog posts when the page loads
+        renderBlogPosts().catch(error => {
+            console.error('Error in renderBlogPosts:', error);
+            document.getElementById('blog-posts').innerHTML = `
+                <div class="col-span-full">
+                    <h2 class="text-xl font-bold mb-2">Error Loading Blog Posts</h2>
+                    <p class="text-gray-600">Sorry, we couldn't load the blog posts.</p>
+                    <p class="text-gray-600">Error: ${error.message}</p>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>

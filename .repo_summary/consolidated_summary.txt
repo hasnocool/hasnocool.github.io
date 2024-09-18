@@ -1,33 +1,35 @@
-Here's a summary of the project:
+Here is the strictly formatted summary:
 
-1. Project Name: Responsive Menu System
+1. **Project Name:** Hasnocool.Github.Io
+2. **Short Description:** A web development project that utilizes CSS and JavaScript to create a visually appealing menu system.
+3. **Overall Description:** This project demonstrates a unique approach to web design by incorporating custom CSS styles and JavaScript functionality to create an interactive menu system. The project uses a combination of CSS preprocessors like Sass, along with modern JavaScript features, to achieve a seamless user experience. The codebase includes a main menu and a side menu, both featuring customizable items with hover effects.
+4. **Main Purpose:** The primary purpose of this project is to showcase a creative way of designing a menu system for web applications.
+5. **Key Technologies:**
+   - CSS (Cascading Style Sheets)
+   - JavaScript
+   - Sass (CSS Preprocessor)
+6. **Unique Features:**
+   - Customizable menu items with hover effects
+   - Integration of CSS preprocessors like Sass for efficient styling
+7. **Future Improvements:**
+   - Implementing responsive design to accommodate different screen sizes and devices
+   - Adding animations and transitions to enhance the user experience
+8. **Personal Notes:** This project serves as a great starting point for those interested in web development, particularly CSS and JavaScript.
+9. **GitHub Tags:** css,javascript,web-development,sass,menu-system,interactive-menu,user-experience,responsive-design
+10. **Installable Modules:** os,PIL
+11. **Suggested Folder Names:** src,styles,scripts,components,utils
+12. **Root Project Folder Name Suggestions:** Hasnocool,GithubProject,WebMenuSystem
 
-2. Short Description: A responsive and customizable menu system designed to be used on websites.
-
-3. Overall Description: This responsive menu system is built with CSS and HTML, utilizing grid layouts and flexbox to create a highly adaptable design that works seamlessly across different screen sizes and devices. It features a clean and modern interface, with features such as hover effects, counters for menu items, and customizable labels. The system is designed to be easily integrated into any website, making it perfect for web developers looking to enhance their site's navigation.
-
-4. Main Purpose: I built this project to create a versatile and accessible menu system that could be used on various websites, providing users with an intuitive way to navigate through content while maintaining a visually appealing design.
-
-5. Key Technologies:
-   - CSS
-   - HTML
-   - Grid Layouts
-   - Flexbox
-
-6. Unique Features:
-   - Hover effects for menu items and labels
-   - Counters for menu items
-   - Customizable labels with different positions (top-left, bottom-right, etc.)
-   - Vertical and mirrored label orientations
-   - Responsive design that adapts to various screen sizes and devices
-
-7. Future Improvements:
-   - Adding support for multiple levels of nesting in the menu system
-   - Incorporating JavaScript to enhance interactive features and improve accessibility
-
-8. Personal Notes: I'm really proud of how this project turned out, and I think it has a lot of potential for customization and further development.
-
-# Extractable Variables
-SHORT_DESCRIPTION = "A responsive and customizable menu system designed to be used on websites."
-OVERALL_DESCRIPTION = "This responsive menu system is built with CSS and HTML, utilizing grid layouts and flexbox to create a highly adaptable design that works seamlessly across different screen sizes and devices. It features a clean and modern interface, with features such as hover effects, counters for menu items, and customizable labels. The system is designed to be easily integrated into any website, making it perfect for web developers looking to enhance their site's navigation."
-GITHUB_TAGS = "responsive-menu-system, customizable-menu, web-development, css-grid-layouts, flexbox, hover-effects, counters-for-menu-items"
+# Extracted Variables:
+PROJECT_NAME = "Hasnocool.Github.Io"
+SHORT_DESCRIPTION = "A web development project that utilizes CSS and JavaScript to create a visually appealing menu system."
+OVERALL_DESCRIPTION = "This project demonstrates a unique approach to web design by incorporating custom CSS styles and JavaScript functionality to create an interactive menu system. The project uses a combination of CSS preprocessors like Sass, along with modern JavaScript features, to achieve a seamless user experience. The codebase includes a main menu and a side menu, both featuring customizable items with hover effects."
+MAIN_PURPOSE = "The primary purpose of this project is to showcase a creative way of designing a menu system for web applications."
+KEY_TECHNOLOGIES = "CSS (Cascading Style Sheets), JavaScript, Sass (CSS Preprocessor)"
+UNIQUE_FEATURES = "Customizable menu items with hover effects, Integration of CSS preprocessors like Sass for efficient styling"
+FUTURE_IMPROVEMENTS = "Implementing responsive design to accommodate different screen sizes and devices, Adding animations and transitions to enhance the user experience"
+PERSONAL_NOTES = "This project serves as a great starting point for those interested in web development, particularly CSS and JavaScript."
+GITHUB_TAGS = "css, javascript, web, development, sass, menu, system, interactive, menu, user, experience, responsive, design"
+INSTALLABLE_MODULES = "PIL"
+SUGGESTED_FOLDER_NAMES = "src, styles, scripts, components, utils"
+ROOT_PROJECT_FOLDER_NAME_SUGGESTIONS = "Hasnocool, GithubProject, WebMenuSystem"
